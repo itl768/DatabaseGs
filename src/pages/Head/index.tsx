@@ -27,36 +27,37 @@ type TableListItem = {
     address: string;
     agoffice1: string;
     agoffice2: string;
-    birthday: date;
+    birthday: string;
     disabilityDonations: string;
     disabilityName: string;
-    disabilityStatus: number;
+    disabilityStatus: string;
     disabilityType: string;
-    donationAmount: number;
+    donationAmount: string;
     donationPostOffice: string;
-    donations: number;
+    donations: string;
     educationLevel: string;
-    gender: number;
-    homePhone: number;
+    gender: string;
+    homePhone: string;
     houseNo: string;
     houseType: string;
-    isHeadPerson: number;
+    isHeadPerson: string;
     jobDescription: string;
-    jobType: number;
-    maritalStatus: number;
+    jobType: string;
+    maritalStatus: string;
     nameV: string;
     nic: string;
-    phone: number;
+    phone: string;
     reason: string;
     relationship: string;
-    residanceDate: date;
-    residanceStatus: number;
-    retire1Name1: string;
+    residanceDate: string;
+    residanceStatus: string;
+    retireName1: string;
     retireName2: string;
     retireNo1: string;
     retireNo2: string;
-    samurdhi: number;
+    samurdhi: string;
     workplaceAddress: string;
+    nameIni: string;
 
 
 
@@ -177,10 +178,11 @@ const Actions: React.FC = () => {
 
 
     // form fields
-    const formFields = () => {
+    const formFields = (isDisabled) => {
         return (<>
             <Space>
                 <ProFormText
+                    disabled={isDisabled}
                     label={'Name'}
                     name="nameV"
                     placeholder={""}
@@ -199,6 +201,7 @@ const Actions: React.FC = () => {
 
                 />
                 <ProFormSelect
+                    disabled={isDisabled}
                     width="sm"
                     options={[
                         {
@@ -213,6 +216,7 @@ const Actions: React.FC = () => {
                     label="Is head person"
                 />
                 <ProFormText
+                    disabled={isDisabled}
                     label={'House No'}
                     name="houseNo"
                     placeholder={""}
@@ -221,8 +225,9 @@ const Actions: React.FC = () => {
 
                 />
                 <ProFormText
-                    label={'Revenue No'}
-                    name="revenueNo"
+                    disabled={isDisabled}
+                    label={'Name with initials'}
+                    name="nameIni"
                     placeholder={""}
                     width="sm"
 
@@ -231,6 +236,7 @@ const Actions: React.FC = () => {
             </Space>
             <Space>
                 <ProFormSelect
+                    disabled={isDisabled}
                     width="sm"
                     options={[
                         {
@@ -246,6 +252,7 @@ const Actions: React.FC = () => {
                 />
 
                 <ProFormText
+                    disabled={isDisabled}
                     label={'Relationship'}
                     name="relationship"
                     placeholder={"relationship"}
@@ -255,6 +262,7 @@ const Actions: React.FC = () => {
                 />
 
                 <ProFormSelect
+                    disabled={isDisabled}
                     width="sm"
                     options={[
                         {
@@ -270,6 +278,7 @@ const Actions: React.FC = () => {
                 />
 
                 <ProFormDatePicker
+                    disabled={isDisabled}
                     width="sm"
                     name="birthday"
                     label="Birthday" />
@@ -278,6 +287,7 @@ const Actions: React.FC = () => {
             <Space>
 
                 <ProFormText
+                    disabled={isDisabled}
                     label={'NIC'}
                     name="nic"
                     placeholder={"NIC no"}
@@ -285,6 +295,7 @@ const Actions: React.FC = () => {
 
                 />
                 <ProFormText
+                    disabled={isDisabled}
                     label={'Education level'}
                     name="educationLevel"
                     placeholder={"education level"}
@@ -294,6 +305,7 @@ const Actions: React.FC = () => {
                 />
 
                 <ProFormDigit
+                    disabled={isDisabled}
                     label={'House phone'}
                     name="homePhone"
                     placeholder={"Phone number"}
@@ -303,6 +315,7 @@ const Actions: React.FC = () => {
                 />
 
                 <ProFormDigit
+                    disabled={isDisabled}
                     label={'Phone number'}
                     name="phone"
                     placeholder={"Phone no"}
@@ -313,13 +326,22 @@ const Actions: React.FC = () => {
             </Space>
             <Space>
                 <ProFormText
+                    disabled={isDisabled}
                     label={'Address'}
                     name="address"
                     width="lg"
 
 
                 />
+                <ProFormText
+                    disabled={isDisabled}
+                    label={'Revenue No'}
+                    name="revenueNo"
+                    placeholder={""}
+                    width="sm"
 
+
+                />
             </Space>
             <Divider > <Text> Job Details</Text></Divider>
 
@@ -327,6 +349,7 @@ const Actions: React.FC = () => {
 
 
                 <ProFormText
+                    disabled={isDisabled}
                     label={'Job description'}
                     name="jobDescription"
                     placeholder={"job description"}
@@ -335,6 +358,7 @@ const Actions: React.FC = () => {
 
                 />
                 <ProFormSelect
+                    disabled={isDisabled}
                     width="sm"
                     options={[
                         {
@@ -354,6 +378,7 @@ const Actions: React.FC = () => {
                 />
 
                 <ProFormText
+                    disabled={isDisabled}
                     label={'Workplace Address'}
                     name="workplaceAddress"
                     placeholder={"gender"}
@@ -368,6 +393,7 @@ const Actions: React.FC = () => {
             <Space>
 
                 <ProFormSelect
+                    disabled={isDisabled}
                     width="sm"
                     options={[
                         {
@@ -394,6 +420,7 @@ const Actions: React.FC = () => {
             <Divider >    <Text> Donations</Text></Divider>
             <Space>
                 <ProFormSelect
+                    disabled={isDisabled}
                     width="sm"
                     options={[
                         {
@@ -409,6 +436,7 @@ const Actions: React.FC = () => {
                 />
 
                 <ProFormDigit
+                    disabled={isDisabled}
                     label={'Amount'}
                     name="donationAmount"
                     placeholder={"Amount"}
@@ -417,6 +445,7 @@ const Actions: React.FC = () => {
 
                 />
                 <ProFormText
+                    disabled={isDisabled}
                     label={'Post office'}
                     name="donationPostOffice"
                     placeholder={"Post Office"}
@@ -425,6 +454,7 @@ const Actions: React.FC = () => {
 
                 />
                 <ProFormText
+                    disabled={isDisabled}
                     label={'Reason'}
                     name="reason"
                     placeholder={"Reason"}
@@ -437,6 +467,7 @@ const Actions: React.FC = () => {
             <Divider><Text> Disabilities</Text></Divider>
             <Space>
                 <ProFormSelect
+                    disabled={isDisabled}
                     width="sm"
                     options={[
                         {
@@ -451,6 +482,7 @@ const Actions: React.FC = () => {
                     label="Any one disabled in the family"
                 />
                 <ProFormText
+                    disabled={isDisabled}
                     label={'If yes Name '}
                     name="disabilityName"
                     placeholder={"Reason"}
@@ -459,6 +491,7 @@ const Actions: React.FC = () => {
 
                 />
                 <ProFormText
+                    disabled={isDisabled}
                     label={'Type of disability '}
                     name="disabilityType"
                     placeholder={"Type"}
@@ -467,6 +500,7 @@ const Actions: React.FC = () => {
 
                 />
                 <ProFormText
+                    disabled={isDisabled}
                     label={'If you reseave donations, howmuch?'}
                     name="disabilityDonations"
                     placeholder={"Donations"}
@@ -478,12 +512,14 @@ const Actions: React.FC = () => {
 
             <Divider>   <Text> Land size</Text></Divider>
             <Space>            <ProFormText
+                disabled={isDisabled}
                 label={'Acres, Rood, Perch'}
                 name="acres"
                 placeholder={"landSize"}
                 width="sm"
             />
                 <ProFormSelect
+                    disabled={isDisabled}
                     width="sm"
                     options={[
                         {
@@ -498,6 +534,7 @@ const Actions: React.FC = () => {
                     label="ResidanceStatus"
                 />
                 <ProFormDatePicker
+                    disabled={isDisabled}
                     width="sm"
                     label="Date of initial residency"
                     name="residanceDate" />
@@ -509,18 +546,21 @@ const Actions: React.FC = () => {
                 <Text>Person1 : </Text>
 
                 <ProFormText
+                    disabled={isDisabled}
                     label={'Names '}
-                    name="retire1Name1"
+                    name="retireName1"
                     placeholder={"Name1"}
                     width="sm"
                 />
                 <ProFormText
+                    disabled={isDisabled}
                     label={'Retirement No '}
                     name="retireNo1"
                     placeholder={""}
                     width="sm"
                 />
                 <ProFormText
+                    disabled={isDisabled}
                     label={'Divisional Secr Office '}
                     name="agoffice1"
                     placeholder={""}
@@ -531,18 +571,21 @@ const Actions: React.FC = () => {
 
                 <Text>Person2 : </Text>
                 <ProFormText
+                    disabled={isDisabled}
                     label={'Names '}
                     name="retireName2"
                     placeholder={"Name"}
                     width="sm"
                 />
                 <ProFormText
+                    disabled={isDisabled}
                     label={'Retirement No '}
                     name="retireNo2"
                     placeholder={""}
                     width="sm"
                 />
                 <ProFormText
+                    disabled={isDisabled}
                     label={'Divisional Secr Office '}
                     name="agoffice2"
                     placeholder={""}
@@ -556,6 +599,7 @@ const Actions: React.FC = () => {
                 <Text>Person1 : </Text>
 
                 <ProFormText
+                    disabled={isDisabled}
                     label={'Names '}
                     name="abroadName1"
                     placeholder={"Name1"}
@@ -564,6 +608,7 @@ const Actions: React.FC = () => {
 
                 <Text>Person2 : </Text>
                 <ProFormText
+                    disabled={isDisabled}
                     label={'Names '}
                     name="abroadName2"
                     placeholder={"Name"}
@@ -574,6 +619,7 @@ const Actions: React.FC = () => {
             <Divider> <Text> Do you recieve samurdhi</Text></Divider>
 
             <ProFormSelect
+                disabled={isDisabled}
                 width="sm"
                 options={[
                     {
@@ -665,13 +711,86 @@ const Actions: React.FC = () => {
 
         {
             title: <FormattedMessage id="pages.workflow.action.titleOption" defaultMessage="Options" />,
-            width: 120,
+            width: 160,
             valueType: 'option',
             render:
                 (entity, dom) => [
                     <DrawerForm
                         width={1000}
-                        key='1'
+                        key={0}
+                        labelwidth="auto"
+                        trigger={
+                            <div>
+                                <a type="primary">
+                                    View
+                                </a>
+
+                            </div>
+                        }
+
+                        submitter={{
+                            // Configure the button text
+                            searchConfig: {
+                                resetText: 'Close',
+                                submitText: 'Submit',
+
+                            },
+                            // Configure the properties of the button
+
+                        }}
+                        request={async () => {
+                            console.log(dom, "this")
+                            return {
+
+                                id: dom.id,
+                                abroadName1: dom.abroadName1,
+                                abroadName2: dom.abroadName2,
+                                acres: dom.acres,
+                                address: dom.address,
+                                agoffice1: dom.agoffice1,
+                                agoffice2: dom.agoffice2,
+                                birthday: dom.birthday,
+                                disabilityDonations: dom.disabilityDonations,
+                                disabilityName: dom.disabilityName,
+                                disabilityStatus: dom.disabilityStatus ? dom.disabilityStatus.toString() : null,
+                                disabilityType: dom.disabilityType,
+                                donationAmount: dom.donationAmount,
+                                donationPostOffice: dom.donationPostOffice,
+                                donations: dom.donations ? dom.donations.toString() : null,
+                                educationLevel: dom.educationLevel,
+                                gender: dom.gender ? dom.gender.toString() : null,
+                                homePhone: dom.homePhone,
+                                houseNo: dom.houseNo,
+                                houseType: dom.houseType ? dom.houseType.toString() : null,
+                                isHeadPerson: dom.isHeadPerson ? dom.isHeadPerson.toString() : null,
+                                jobDescription: dom.jobDescription,
+                                jobType: dom.jobType ? dom.jobType.toString() : null,
+                                maritalStatus: dom.maritalStatus ? dom.maritalStatus.toString() : null,
+                                nameV: dom.nameV,
+                                nic: dom.nic,
+                                phone: dom.phone,
+                                reason: dom.reason,
+                                relationship: dom.relationship,
+                                residanceDate: dom.residanceDate,
+                                residanceStatus: dom.residanceStatus ? dom.residanceStatus.toString() : null,
+                                retireName1: dom.retireName1,
+                                retireName2: dom.retireName2,
+                                retireNo1: dom.retireNo1,
+                                retireNo2: dom.retireNo2,
+                                samurdhi: dom.samurdhi ? dom.samurdhi.toString() : null,
+                                workplaceAddress: dom.workplaceAddress,
+                                nameIni: dom.nameIni
+                            }
+                        }}
+                    >
+
+                        {formFields(true)}
+
+
+                    </DrawerForm >,
+                    <DrawerForm
+                        width={1000}
+                        key={1}
                         labelwidth="auto"
                         trigger={
                             <div>
@@ -682,6 +801,8 @@ const Actions: React.FC = () => {
                             </div>
                         }
                         onFinish={async (values: TableListItem) => {
+
+
                             handleEdit({
                                 ...values,
                                 id: dom.id,
@@ -715,12 +836,13 @@ const Actions: React.FC = () => {
                                 relationship: values.relationship,
                                 residanceDate: moment(values.residanceDate).format("YYYY-MM-DD"),
                                 residanceStatus: values.residanceStatus,
-                                retire1Name1: values.retire1Name1,
+                                retireName1: values.retireName1,
                                 retireName2: values.retireName2,
                                 retireNo1: values.retireNo1,
                                 retireNo2: values.retireNo2,
                                 samurdhi: values.samurdhi,
                                 workplaceAddress: values.workplaceAddress,
+                                nameIni: values.nameIni
 
                             })
                         }}
@@ -735,7 +857,7 @@ const Actions: React.FC = () => {
 
                         }}
                         request={async () => {
-
+                            console.log(dom, "this")
                             return {
 
                                 id: dom.id,
@@ -748,39 +870,39 @@ const Actions: React.FC = () => {
                                 birthday: dom.birthday,
                                 disabilityDonations: dom.disabilityDonations,
                                 disabilityName: dom.disabilityName,
-                                disabilityStatus: dom.disabilityStatus.toString(),
+                                disabilityStatus: dom.disabilityStatus ? dom.disabilityStatus.toString() : null,
                                 disabilityType: dom.disabilityType,
                                 donationAmount: dom.donationAmount,
                                 donationPostOffice: dom.donationPostOffice,
-                                donations: dom.donations.toString(),
+                                donations: dom.donations ? dom.donations.toString() : null,
                                 educationLevel: dom.educationLevel,
-                                gender: dom.gender.toString(),
+                                gender: dom.gender ? dom.gender.toString() : null,
                                 homePhone: dom.homePhone,
                                 houseNo: dom.houseNo,
-                                houseType: dom.houseType.toString(),
-                                isHeadPerson: dom.isHeadPerson.toString(),
+                                houseType: dom.houseType ? dom.houseType.toString() : null,
+                                isHeadPerson: dom.isHeadPerson ? dom.isHeadPerson.toString() : null,
                                 jobDescription: dom.jobDescription,
-                                jobType: dom.jobType.toString(),
-                                maritalStatus: dom.maritalStatus.toString(),
+                                jobType: dom.jobType ? dom.jobType.toString() : null,
+                                maritalStatus: dom.maritalStatus ? dom.maritalStatus.toString() : null,
                                 nameV: dom.nameV,
                                 nic: dom.nic,
                                 phone: dom.phone,
                                 reason: dom.reason,
                                 relationship: dom.relationship,
                                 residanceDate: dom.residanceDate,
-                                residanceStatus: dom.residanceStatus.toString(),
-                                retire1Name1: dom.retire1Name1,
+                                residanceStatus: dom.residanceStatus ? dom.residanceStatus.toString() : null,
+                                retireName1: dom.retireName1,
                                 retireName2: dom.retireName2,
                                 retireNo1: dom.retireNo1,
                                 retireNo2: dom.retireNo2,
-                                samurdhi: dom.samurdhi.toString(),
+                                samurdhi: dom.samurdhi ? dom.samurdhi.toString() : null,
                                 workplaceAddress: dom.workplaceAddress,
-                                useMode: 'chapter',
+                                nameIni: dom.nameIni
                             }
                         }}
                     >
 
-                        {formFields()}
+                        {formFields(false)}
 
 
                     </DrawerForm >,
