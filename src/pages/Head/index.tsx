@@ -201,8 +201,8 @@ const Actions: React.FC = () => {
 
                 />
                 <ProFormText
-                    label={'Revenue No'}
-                    name="revenueNo"
+                    label={'Name with initial'}
+                    name="nameIni"
                     placeholder={""}
                     width="sm"
 
@@ -296,6 +296,14 @@ const Actions: React.FC = () => {
                     label={'Address'}
                     name="address"
                     width="lg"
+
+
+                />
+                <ProFormText
+                    label={'Revenue No'}
+                    name="revenueNo"
+                    placeholder={""}
+                    width="sm"
 
 
                 />
@@ -651,9 +659,8 @@ const Actions: React.FC = () => {
                 (entity, dom) => [
                     <DrawerForm
                         width={1000}
-
                         key='1'
-                        labelWidth="auto"
+                        labelwidth="auto"
                         trigger={
                             <div>
                                 <a type="primary">
@@ -663,60 +670,9 @@ const Actions: React.FC = () => {
                             </div>
                         }
                         onFinish={async (values: TableListItem) => {
+
+
                             handleEdit({
-                                ...values,
-                                id: dom.id,
-                                abroadName1: values.abroadName1,
-                                abroadName2: values.abroadName2,
-                                acres: values.acres,
-                                address: values.address,
-                                agoffice1: values.agoffice1,
-                                agoffice2: values.agoffice2,
-                                birthday: values.birthday,
-                                disabilityDonations: values.disabilityDonations,
-                                disabilityName: values.disabilityName,
-                                disabilityStatus: values.disabilityStatus,
-                                disabilityType: values.disabilityType,
-                                donationAmount: values.donationAmount,
-                                donationPostOffice: values.donationPostOffice,
-                                donations: values.donations,
-                                educationLevel: values.educationLevel,
-                                gender: values.gender,
-                                homePhone: values.homePhone,
-                                houseNo: values.houseNo,
-                                houseType: values.houseType,
-                                isHeadPerson: values.isHeadPerson,
-                                jobDescription: values.jobDescription,
-                                jobType: values.jobType,
-                                maritalStatus: values.maritalStatus,
-                                nameV: values.nameV,
-                                nic: values.nic,
-                                phone: pho,
-                                reason: values.reason,
-                                relationship: values.relationship,
-                                residanceDate: values.residanceDate,
-                                residanceStatus: values.residanceStatus,
-                                retire1Name1: values.retire1Name1,
-                                retireName2: values.retireName2,
-                                retireNo1: values.retireNo1,
-                                retireNo2: values.retireNo2,
-                                samurdhi: values.samurdhi,
-                                workplaceAddress: values.workplaceAddress,
-
-                            })
-                        }}
-
-                        submitter={{
-                            // Configure the button text
-                            searchConfig: {
-                                resetText: 'Close',
-                                submitText: 'Edit',
-                            },
-                            // Configure the properties of the button
-
-                        }}
-                        request={async () => {
-                            return {
                                 id: dom.id,
                                 abroadName1: dom.abroadName1,
                                 abroadName2: dom.abroadName2,
@@ -743,7 +699,7 @@ const Actions: React.FC = () => {
                                 maritalStatus: dom.maritalStatus,
                                 nameV: dom.nameV,
                                 nic: dom.nic,
-                                phone: pho,
+                                phone: dom.phone,
                                 reason: dom.reason,
                                 relationship: dom.relationship,
                                 residanceDate: dom.residanceDate,
@@ -754,7 +710,57 @@ const Actions: React.FC = () => {
                                 retireNo2: dom.retireNo2,
                                 samurdhi: dom.samurdhi,
                                 workplaceAddress: dom.workplaceAddress,
+                            })
+                        }}
 
+                        submitter={{
+                            // Configure the button text
+                            searchConfig: {
+                                resetText: 'Close',
+                                submitText: 'Edit',
+                            },
+                            // Configure the properties of the button
+
+                        }}
+                        request={async () => {
+                            return {
+                                id: dom.id,
+                                abroadName1: values.abroadName1,
+                                abroadName2: values.abroadName2,
+                                acres: values.acres,
+                                address: values.address,
+                                agoffice1: values.agoffice1,
+                                agoffice2: values.agoffice2,
+                                birthday: values.birthday,
+                                disabilityDonations: values.disabilityDonations,
+                                disabilityName: values.disabilityName,
+                                disabilityStatus: values.disabilityStatus,
+                                disabilityType: values.disabilityType,
+                                donationAmount: values.donationAmount,
+                                donationPostOffice: values.donationPostOffice,
+                                donations: values.donations,
+                                educationLevel: values.educationLevel,
+                                gender: values.gender,
+                                homePhone: values.homePhone,
+                                houseNo: values.houseNo,
+                                houseType: values.houseType,
+                                isHeadPerson: values.isHeadPerson,
+                                jobDescription: values.jobDescription,
+                                jobType: values.jobType,
+                                maritalStatus: values.maritalStatus,
+                                nameV: values.nameV,
+                                nic: values.nic,
+                                phone: values.phone,
+                                reason: values.reason,
+                                relationship: values.relationship,
+                                residanceDate: values.residanceDate,
+                                residanceStatus: values.residanceStatus,
+                                retire1Name1: values.retire1Name1,
+                                retireName2: values.retireName2,
+                                retireNo1: values.retireNo1,
+                                retireNo2: values.retireNo2,
+                                samurdhi: values.samurdhi,
+                                workplaceAddress: values.workplaceAddress,
                                 useMode: 'chapter',
                             }
                         }}

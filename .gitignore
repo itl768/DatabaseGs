@@ -22,6 +22,7 @@ pnpm-lock.yaml
 *bak
 
 /src/server/.env
+/src/server/server.js
 
 # visual studio code
 .history
