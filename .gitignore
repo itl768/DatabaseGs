@@ -21,6 +21,7 @@ package-lock.json
 pnpm-lock.yaml
 *bak
 
+/src/server/.env
 
 # visual studio code
 .history

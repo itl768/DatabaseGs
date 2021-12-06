@@ -6,7 +6,7 @@ import {
   UserOutlined,
   WeiboCircleOutlined,
 } from '@ant-design/icons';
-import { Alert, message, Tabs, Typography,Button} from 'antd';
+import { Alert, message, Tabs, Typography, Button } from 'antd';
 import React, { useState } from 'react';
 import { ProFormCaptcha, ProFormCheckbox, ProFormText, LoginForm } from '@ant-design/pro-form';
 import { useIntl, history, FormattedMessage, SelectLang, useModel } from 'umi';
@@ -15,7 +15,7 @@ import { login } from '@/services/ant-design-pro/api';
 import { getFakeCaptcha } from '@/services/ant-design-pro/login';
 
 import styles from './index.less';
-const { Text, Link ,Title} = Typography;
+const { Text, Link, Title } = Typography;
 
 const LoginMessage: React.FC<{
   content: string;
@@ -82,13 +82,15 @@ const Login: React.FC = () => {
 
   return (
     <div className={styles.container}>
-
+      <div className={styles.lang} data-lang>
+        {SelectLang && <SelectLang />}
+      </div>
       <div className={styles.content}>
-     
+
 
         <LoginForm
           logo={<img alt="logo" src="/logo.png" />}
-          title= "eGn"
+          title="eGn"
           subTitle={"Advanced database for storing user data"}
           initialValues={{
             autoLogin: true,
@@ -96,13 +98,13 @@ const Login: React.FC = () => {
           submitter={{
             render: (_, dom) => dom.pop(),
             submitButtonProps: {
-             
+
               size: 'large',
               style: {
                 width: '100%',
               },
             },
-            searchConfig:{
+            searchConfig: {
               submitText: intl.formatMessage({
                 id: 'pages.login.accountLogin.loginButton',
                 defaultMessage: 'Login',
@@ -123,7 +125,7 @@ const Login: React.FC = () => {
                 defaultMessage: '账户密码登录',
               })}
             />
-           
+
           </Tabs>
 
           {status === 'error' && loginType === 'account' && (
@@ -178,7 +180,7 @@ const Login: React.FC = () => {
                 ]}
               />
 
-              <Button  />
+              <Button />
             </>
           )}
 
