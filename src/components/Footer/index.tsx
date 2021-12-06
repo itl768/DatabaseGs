@@ -12,9 +12,7 @@ const Footer: React.FC = () => {
   const currentYear = new Date().getFullYear();
 
   return (
-    <DefaultFooter
-     
-    />
+    <>    </>
   );
 };
 
