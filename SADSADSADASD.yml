@@ -1,36 +1,36 @@
-abroadName1: dom.abroadName1,
-abroadName2: dom.abroadName2,
-acres: dom.acres,
-address: dom.address,
-agoffice1: dom.agoffice1,
-agoffice2: dom.agoffice2,
-birthday: dom.birthday,
-disabilityDonations: disabilityDonations,
-disabilityName: dom.disabilityName,
-disabilityStatus: dom.disabilityStatus,
-disabilityType: dom.disabilityType,
-donationAmount: dom.donationAmount,
-donationPostOffice: dom.donationPostOffice,
-donations: dom.donations,
-educationLevel: dom.educationLevel,
-gender: dom.gender,
-homePhone: dom.homePhone,
-houseNo: dom.houseNo,
-houseType: dom.houseType,
-isHeadPerson: dom.isHeadPerson,
-jobDescription: dom.jobDescription,
-jobType: dom.jobType,
-maritalStatus: dom.maritalStatus,
-nameV: dom.nameV,
-nic: dom.nic,
-phone: pho,
-reason: dom.reason,
-relationship: dom.relationship,
-residanceDate: dom.residanceDate,
-residanceStatus: dom.residanceStatus,
-retire1Name1: dom.retire1Name1,
-retireName2: dom.retireName2,
-retireNo1: dom.retireNo1,
-retireNo2: dom.retireNo2,
-samurdhi: dom.samurdhi,
-workplaceAddress: dom.workplaceAddress,
+abroadName1: string;
+abroadName2: string;
+acres:string;
+address: string;
+agoffice1: string;
+agoffice2: string;
+birthday: string;
+disabilityDonations: string;
+disabilityName: string;
+disabilityStatus: number;
+disabilityType: string;
+donationAmount: number; 
+  donationPostOffice: string;
+donations: number;
+educationLevel: string;
+gender: number;
+homePhone:number;
+houseNo: string;
+houseType: string;
+isHeadPerson: number;
+jobDescription: string;
+jobType: number;
+maritalStatus: number;
+nameV: string;
+nic: string;
+phone: number;
+reason:string;
+relationship: string;
+residanceDate: string;
+residanceStatus: number;
+retire1Name1: string;
+retireName2: string;
+retireNo1: string;
+retireNo2:string;
+samurdhi: number;
+workplaceAddress:string; 

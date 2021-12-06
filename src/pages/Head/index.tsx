@@ -14,29 +14,49 @@ import { queryData, addData, updateData, removeData } from '../../services/workf
 import { useIntl, FormattedMessage } from 'umi';
 import form from 'antd/lib/form';
 import { PageContainer } from '@ant-design/pro-layout';
-
+import moment from 'moment';
 const { Title, Paragraph, Text, Link } = Typography;
 
 // change as the page
 
 type TableListItem = {
     id: number;
-    nameV: string;
-    houseNo: string;
-    gender: string;
-    relationship: string;
-    maritalStatus: string;
-    nic: string;
+    abroadName1: string;
+    abroadName2: string;
+    acres: string;
+    address: string;
+    agoffice1: string;
+    agoffice2: string;
+    birthday: date;
+    disabilityDonations: string;
+    disabilityName: string;
+    disabilityStatus: number;
+    disabilityType: string;
+    donationAmount: number;
+    donationPostOffice: string;
+    donations: number;
     educationLevel: string;
-    jobDescription: string;
-    workplaceAddress: string;
-    birthday: string;
-    houseStyle: string;
-    publicFunds: string;
-    revenueNumber: string;
-    samurdhi: boolean;
+    gender: number;
     homePhone: number;
-    phone: number
+    houseNo: string;
+    houseType: string;
+    isHeadPerson: number;
+    jobDescription: string;
+    jobType: number;
+    maritalStatus: number;
+    nameV: string;
+    nic: string;
+    phone: number;
+    reason: string;
+    relationship: string;
+    residanceDate: date;
+    residanceStatus: number;
+    retire1Name1: string;
+    retireName2: string;
+    retireNo1: string;
+    retireNo2: string;
+    samurdhi: number;
+    workplaceAddress: string;
 
 
 
@@ -201,8 +221,8 @@ const Actions: React.FC = () => {
 
                 />
                 <ProFormText
-                    label={'Name with initial'}
-                    name="nameIni"
+                    label={'Revenue No'}
+                    name="revenueNo"
                     placeholder={""}
                     width="sm"
 
@@ -296,14 +316,6 @@ const Actions: React.FC = () => {
                     label={'Address'}
                     name="address"
                     width="lg"
-
-
-                />
-                <ProFormText
-                    label={'Revenue No'}
-                    name="revenueNo"
-                    placeholder={""}
-                    width="sm"
 
 
                 />
@@ -670,60 +682,8 @@ const Actions: React.FC = () => {
                             </div>
                         }
                         onFinish={async (values: TableListItem) => {
-
-
                             handleEdit({
-                                id: dom.id,
-                                abroadName1: dom.abroadName1,
-                                abroadName2: dom.abroadName2,
-                                acres: dom.acres,
-                                address: dom.address,
-                                agoffice1: dom.agoffice1,
-                                agoffice2: dom.agoffice2,
-                                birthday: dom.birthday,
-                                disabilityDonations: disabilityDonations,
-                                disabilityName: dom.disabilityName,
-                                disabilityStatus: dom.disabilityStatus,
-                                disabilityType: dom.disabilityType,
-                                donationAmount: dom.donationAmount,
-                                donationPostOffice: dom.donationPostOffice,
-                                donations: dom.donations,
-                                educationLevel: dom.educationLevel,
-                                gender: dom.gender,
-                                homePhone: dom.homePhone,
-                                houseNo: dom.houseNo,
-                                houseType: dom.houseType,
-                                isHeadPerson: dom.isHeadPerson,
-                                jobDescription: dom.jobDescription,
-                                jobType: dom.jobType,
-                                maritalStatus: dom.maritalStatus,
-                                nameV: dom.nameV,
-                                nic: dom.nic,
-                                phone: dom.phone,
-                                reason: dom.reason,
-                                relationship: dom.relationship,
-                                residanceDate: dom.residanceDate,
-                                residanceStatus: dom.residanceStatus,
-                                retire1Name1: dom.retire1Name1,
-                                retireName2: dom.retireName2,
-                                retireNo1: dom.retireNo1,
-                                retireNo2: dom.retireNo2,
-                                samurdhi: dom.samurdhi,
-                                workplaceAddress: dom.workplaceAddress,
-                            })
-                        }}
-
-                        submitter={{
-                            // Configure the button text
-                            searchConfig: {
-                                resetText: 'Close',
-                                submitText: 'Edit',
-                            },
-                            // Configure the properties of the button
-
-                        }}
-                        request={async () => {
-                            return {
+                                ...values,
                                 id: dom.id,
                                 abroadName1: values.abroadName1,
                                 abroadName2: values.abroadName2,
@@ -731,7 +691,7 @@ const Actions: React.FC = () => {
                                 address: values.address,
                                 agoffice1: values.agoffice1,
                                 agoffice2: values.agoffice2,
-                                birthday: values.birthday,
+                                birthday: moment(values.birthday).format("YYYY-MM-DD"),
                                 disabilityDonations: values.disabilityDonations,
                                 disabilityName: values.disabilityName,
                                 disabilityStatus: values.disabilityStatus,
@@ -753,7 +713,7 @@ const Actions: React.FC = () => {
                                 phone: values.phone,
                                 reason: values.reason,
                                 relationship: values.relationship,
-                                residanceDate: values.residanceDate,
+                                residanceDate: moment(values.residanceDate).format("YYYY-MM-DD"),
                                 residanceStatus: values.residanceStatus,
                                 retire1Name1: values.retire1Name1,
                                 retireName2: values.retireName2,
@@ -761,6 +721,60 @@ const Actions: React.FC = () => {
                                 retireNo2: values.retireNo2,
                                 samurdhi: values.samurdhi,
                                 workplaceAddress: values.workplaceAddress,
+
+                            })
+                        }}
+
+                        submitter={{
+                            // Configure the button text
+                            searchConfig: {
+                                resetText: 'Close',
+                                submitText: 'Edit',
+                            },
+                            // Configure the properties of the button
+
+                        }}
+                        request={async () => {
+
+                            return {
+
+                                id: dom.id,
+                                abroadName1: dom.abroadName1,
+                                abroadName2: dom.abroadName2,
+                                acres: dom.acres,
+                                address: dom.address,
+                                agoffice1: dom.agoffice1,
+                                agoffice2: dom.agoffice2,
+                                birthday: dom.birthday,
+                                disabilityDonations: dom.disabilityDonations,
+                                disabilityName: dom.disabilityName,
+                                disabilityStatus: dom.disabilityStatus.toString(),
+                                disabilityType: dom.disabilityType,
+                                donationAmount: dom.donationAmount,
+                                donationPostOffice: dom.donationPostOffice,
+                                donations: dom.donations.toString(),
+                                educationLevel: dom.educationLevel,
+                                gender: dom.gender.toString(),
+                                homePhone: dom.homePhone,
+                                houseNo: dom.houseNo,
+                                houseType: dom.houseType.toString(),
+                                isHeadPerson: dom.isHeadPerson.toString(),
+                                jobDescription: dom.jobDescription,
+                                jobType: dom.jobType.toString(),
+                                maritalStatus: dom.maritalStatus.toString(),
+                                nameV: dom.nameV,
+                                nic: dom.nic,
+                                phone: dom.phone,
+                                reason: dom.reason,
+                                relationship: dom.relationship,
+                                residanceDate: dom.residanceDate,
+                                residanceStatus: dom.residanceStatus.toString(),
+                                retire1Name1: dom.retire1Name1,
+                                retireName2: dom.retireName2,
+                                retireNo1: dom.retireNo1,
+                                retireNo2: dom.retireNo2,
+                                samurdhi: dom.samurdhi.toString(),
+                                workplaceAddress: dom.workplaceAddress,
                                 useMode: 'chapter',
                             }
                         }}
@@ -769,7 +783,7 @@ const Actions: React.FC = () => {
                         {formFields()}
 
 
-                    </DrawerForm>,
+                    </DrawerForm >,
                     <a key="2" onClick={() => {
                         // setDeleteId(dom.id)
                         showDeleteModal(dom.id)

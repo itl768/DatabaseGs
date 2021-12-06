@@ -1,4 +1,6 @@
-﻿export default [
+﻿
+
+export default [
   {
     path: '/user',
     layout: false,
@@ -18,19 +20,19 @@
       },
     ],
   },
-  
   {
-    name: 'Head of family',
+    name: 'Dashboard',
+    icon: 'crown',
+    path: '/list',
+    component: './Children',
+  },
+  {
+    name: 'People data',
     icon: 'table',
     path: '/head',
     component: './Head',
   },
-  {
-    name: 'Dependants',
-    icon: 'table',
-    path: '/list',
-    component: './Children',
-  },
+  
   {
     path: '/',
     redirect: '/head',

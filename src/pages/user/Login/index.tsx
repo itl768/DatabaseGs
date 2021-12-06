@@ -90,7 +90,7 @@ const Login: React.FC = () => {
 
         <LoginForm
           logo={<img alt="logo" src="/logo.png" />}
-          title="eGn"
+          title="eGn - 2021"
           subTitle={"Advanced database for storing user data"}
           initialValues={{
             autoLogin: true,

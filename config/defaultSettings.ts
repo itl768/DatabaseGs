@@ -11,10 +11,9 @@ const Settings: LayoutSettings & {
   fixedHeader: false,
   fixSiderbar: true,
   colorWeak: false,
-  title: 'eGn',
+  title: 'eGn - 2021',
   pwa: false,
   logo:"https://www.pngkey.com/png/full/239-2392657_circulos-png.png",
-  iconfontUrl: '',
 };
 
 export default Settings;
