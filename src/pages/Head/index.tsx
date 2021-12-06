@@ -5,39 +5,42 @@ import ProTable from '@ant-design/pro-table';
 import { Button, message, Divider, Modal, Space, Form } from 'antd'
 import type { ConfirmModelLoadingTypes } from '../../data'
 import { PlusOutlined, ExclamationCircleOutlined } from '@ant-design/icons';
-import { ModalForm, ProFormText, DrawerForm, ProFormTextArea, ProFormCheckbox, ProFormDatePicker, ProFormSelect } from '@ant-design/pro-form';
+import { ModalForm, ProFormText, DrawerForm, ProFormTextArea, ProFormCheckbox, ProFormDatePicker, ProFormSelect, ProFormDigit } from '@ant-design/pro-form';
 // change this accordingly
+import { Typography } from 'antd';
 
 import { queryData, addData, updateData, removeData } from '../../services/workflowServices'
 
 import { useIntl, FormattedMessage } from 'umi';
 import form from 'antd/lib/form';
+import { PageContainer } from '@ant-design/pro-layout';
 
+const { Title, Paragraph, Text, Link } = Typography;
 
 // change as the page
 
 type TableListItem = {
     id: number;
     nameV: string;
-houseNo: string;
-gender: string;
-relationship: string;
-maritalStatus: string;
-nic:string;
-educationLevel:string;
-jobDescription:string;
-workplaceAddress:string;
-birthday: string;
-houseStyle: string;
-publicFunds: string;
-revenueNumber: string;
-samurdhi: boolean;
-homePhone: number;
-phone: number
+    houseNo: string;
+    gender: string;
+    relationship: string;
+    maritalStatus: string;
+    nic: string;
+    educationLevel: string;
+    jobDescription: string;
+    workplaceAddress: string;
+    birthday: string;
+    houseStyle: string;
+    publicFunds: string;
+    revenueNumber: string;
+    samurdhi: boolean;
+    homePhone: number;
+    phone: number
 
 
 
-  
+
 };
 
 const warningMsgs = {
@@ -156,114 +159,416 @@ const Actions: React.FC = () => {
     // form fields
     const formFields = () => {
         return (<>
-        <Space>
-            <ProFormText
-                label={'Name'}
-                name="nameV"
-                placeholder={""}
+            <Space>
+                <ProFormText
+                    label={'Name'}
+                    name="nameV"
+                    placeholder={""}
+                    width="sm"
+                    rules={[
+                        {
+                            required: true,
+                            message: (
+                                <FormattedMessage
+                                    id="pages.workflow.action.name.rule"
+                                    defaultMessage="Action Name is a mandatory field"
+                                />
+                            ),
+                        },
+                    ]}
+
+                />
+                <ProFormSelect
+                    width="sm"
+                    options={[
+                        {
+                            value: '0',
+                            label: 'Yes',
+                        }, {
+                            value: '1',
+                            label: 'No',
+                        },
+                    ]}
+                    name="isHeadPerson"
+                    label="Is head person"
+                />
+                <ProFormText
+                    label={'House No'}
+                    name="houseNo"
+                    placeholder={""}
+                    width="sm"
+
+
+                />
+                <ProFormText
+                    label={'Revenue No'}
+                    name="revenueNo"
+                    placeholder={""}
+                    width="sm"
+
+
+                />
+            </Space>
+            <Space>
+                <ProFormSelect
+                    width="sm"
+                    options={[
+                        {
+                            value: '0',
+                            label: 'Male',
+                        }, {
+                            value: '1',
+                            label: 'Female',
+                        },
+                    ]}
+                    name="gender"
+                    label="Gender"
+                />
+
+                <ProFormText
+                    label={'Relationship'}
+                    name="relationship"
+                    placeholder={"relationship"}
+                    width="sm"
+
+
+                />
+
+                <ProFormSelect
+                    width="sm"
+                    options={[
+                        {
+                            value: '0',
+                            label: 'Married',
+                        }, {
+                            value: '1',
+                            label: 'Unmarried',
+                        },
+                    ]}
+                    name="maritalStatus"
+                    label="Marital status"
+                />
+
+                <ProFormDatePicker
+                    width="sm"
+                    name="birthday"
+                    label="Birthday" />
+
+            </Space>
+            <Space>
+
+                <ProFormText
+                    label={'NIC'}
+                    name="nic"
+                    placeholder={"NIC no"}
+                    width="sm"
+
+                />
+                <ProFormText
+                    label={'Education level'}
+                    name="educationLevel"
+                    placeholder={"education level"}
+                    width="sm"
+
+
+                />
+
+                <ProFormDigit
+                    label={'House phone'}
+                    name="homePhone"
+                    placeholder={"Phone number"}
+                    width="sm"
+
+
+                />
+
+                <ProFormDigit
+                    label={'Phone number'}
+                    name="phone"
+                    placeholder={"Phone no"}
+                    width="sm"
+
+
+                />
+            </Space>
+            <Space>
+                <ProFormText
+                    label={'Address'}
+                    name="address"
+                    width="lg"
+
+
+                />
+
+            </Space>
+            <Divider > <Text> Job Details</Text></Divider>
+
+            <Space>
+
+
+                <ProFormText
+                    label={'Job description'}
+                    name="jobDescription"
+                    placeholder={"job description"}
+                    width="sm"
+
+
+                />
+                <ProFormSelect
+                    width="sm"
+                    options={[
+                        {
+                            value: '0',
+                            label: 'Government',
+                        }, {
+                            value: '1',
+                            label: 'Private',
+                        },
+                        {
+                            value: '2',
+                            label: 'Other',
+                        },
+                    ]}
+                    name="jobType"
+                    label="Job type"
+                />
+
+                <ProFormText
+                    label={'Workplace Address'}
+                    name="workplaceAddress"
+                    placeholder={"gender"}
+                    width="sm"
+
+
+                />
+            </Space>
+
+
+            <Divider >  <Text> House Style</Text></Divider>
+            <Space>
+
+                <ProFormSelect
+                    width="sm"
+                    options={[
+                        {
+                            value: '0',
+                            label: 'Permenant',
+                        }, {
+                            value: '1',
+                            label: 'Partially permenant',
+                        },
+                        {
+                            value: '2',
+                            label: 'Temporary',
+                        },
+                        {
+                            value: '3',
+                            label: 'Hut',
+                        },
+                    ]}
+                    name="houseType"
+                    label="House type"
+                />
+            </Space>
+
+            <Divider >    <Text> Donations</Text></Divider>
+            <Space>
+                <ProFormSelect
+                    width="sm"
+                    options={[
+                        {
+                            value: '0',
+                            label: 'Yes',
+                        }, {
+                            value: '1',
+                            label: 'No',
+                        },
+                    ]}
+                    name="donations"
+                    label="Do you receive donations"
+                />
+
+                <ProFormDigit
+                    label={'Amount'}
+                    name="donationAmount"
+                    placeholder={"Amount"}
+                    width="sm"
+
+
+                />
+                <ProFormText
+                    label={'Post office'}
+                    name="donationPostOffice"
+                    placeholder={"Post Office"}
+                    width="sm"
+
+
+                />
+                <ProFormText
+                    label={'Reason'}
+                    name="reason"
+                    placeholder={"Reason"}
+                    width="sm"
+
+
+                />
+            </Space>
+
+            <Divider><Text> Disabilities</Text></Divider>
+            <Space>
+                <ProFormSelect
+                    width="sm"
+                    options={[
+                        {
+                            value: '0',
+                            label: 'Yes',
+                        }, {
+                            value: '1',
+                            label: 'No',
+                        },
+                    ]}
+                    name="disabilityStatus"
+                    label="Any one disabled in the family"
+                />
+                <ProFormText
+                    label={'If yes Name '}
+                    name="disabilityName"
+                    placeholder={"Reason"}
+                    width="sm"
+
+
+                />
+                <ProFormText
+                    label={'Type of disability '}
+                    name="disabilityType"
+                    placeholder={"Type"}
+                    width="sm"
+
+
+                />
+                <ProFormText
+                    label={'If you reseave donations, howmuch?'}
+                    name="disabilityDonations"
+                    placeholder={"Donations"}
+                    width="sm"
+
+
+                />
+            </Space>
+
+            <Divider>   <Text> Land size</Text></Divider>
+            <Space>            <ProFormText
+                label={'Acres, Rood, Perch'}
+                name="acres"
+                placeholder={"landSize"}
                 width="sm"
-                rules={[
+            />
+                <ProFormSelect
+                    width="sm"
+                    options={[
+                        {
+                            value: '0',
+                            label: 'Permenant',
+                        }, {
+                            value: '1',
+                            label: 'Temperory',
+                        },
+                    ]}
+                    name="residanceStatus"
+                    label="ResidanceStatus"
+                />
+                <ProFormDatePicker
+                    width="sm"
+                    label="Date of initial residency"
+                    name="residanceDate" />
+            </Space>
+
+            <Divider>  <Text> Goverment retired persons</Text></Divider>
+            <Space>
+
+                <Text>Person1 : </Text>
+
+                <ProFormText
+                    label={'Names '}
+                    name="retire1Name1"
+                    placeholder={"Name1"}
+                    width="sm"
+                />
+                <ProFormText
+                    label={'Retirement No '}
+                    name="retireNo1"
+                    placeholder={""}
+                    width="sm"
+                />
+                <ProFormText
+                    label={'Divisional Secr Office '}
+                    name="agoffice1"
+                    placeholder={""}
+                    width="sm"
+                />
+            </Space>
+            <Space>
+
+                <Text>Person2 : </Text>
+                <ProFormText
+                    label={'Names '}
+                    name="retireName2"
+                    placeholder={"Name"}
+                    width="sm"
+                />
+                <ProFormText
+                    label={'Retirement No '}
+                    name="retireNo2"
+                    placeholder={""}
+                    width="sm"
+                />
+                <ProFormText
+                    label={'Divisional Secr Office '}
+                    name="agoffice2"
+                    placeholder={""}
+                    width="sm"
+                />
+            </Space>
+
+            <Divider> <Text> Any family members abroad</Text></Divider>
+            <Space>
+
+                <Text>Person1 : </Text>
+
+                <ProFormText
+                    label={'Names '}
+                    name="abroadName1"
+                    placeholder={"Name1"}
+                    width="sm"
+                />
+
+                <Text>Person2 : </Text>
+                <ProFormText
+                    label={'Names '}
+                    name="abroadName2"
+                    placeholder={"Name"}
+                    width="sm"
+                />
+            </Space>
+
+            <Divider> <Text> Do you recieve samurdhi</Text></Divider>
+
+            <ProFormSelect
+                width="sm"
+                options={[
                     {
-                        required: true,
-                        message: (
-                            <FormattedMessage
-                                id="pages.workflow.action.name.rule"
-                                defaultMessage="Action Name is a mandatory field"
-                            />
-                        ),
+                        value: '0',
+                        label: 'Yes',
+                    }, {
+                        value: '1',
+                        label: 'No',
                     },
                 ]}
-
+                name="samurdhi"
+                label="Samurdhi"
             />
-            <ProFormText
-                label={'House No'}
-                name="houseNo"
-                placeholder={""}
-                width="sm"
 
 
-            />
-           
-             <ProFormSelect
-              width="sm"
-              options={[
-                {
-                  value: '0',
-                  label: 'Male',
-                },{
-                value: '1',
-                label: 'Female',
-              },
-              ]}
-              name="gender"
-              label="Gender"
-            />
-            </Space>
-            <Space>
-             <ProFormText
-                label={'Relationship'}
-                name="relationship"
-                placeholder={"relationship"}
-                width="sm"
-
-
-            />
-             <ProFormSelect
-              width="sm"
-              options={[
-                {
-                  value: '0',
-                  label: 'Married',
-                },{
-                value: '1',
-                label: 'Unmarried',
-              },
-              ]}
-              name="maritalStatus"
-              label="Marital status"
-            />
-            
-             <ProFormDatePicker 
-              width="sm" 
-              name="birthday" 
-              label="Birthday" />
-            </Space>
-            <Space>
-             <ProFormText
-                label={'NIC'}
-                name="nic"
-                placeholder={"NIC no"}
-                width="sm"
-
-            />
-             <ProFormText
-                label={'Education level'}
-                name="educationLevel"
-                placeholder={"education level"}
-                width="sm"
-
-
-            />
-             <ProFormText
-                label={'Job description'}
-                name="jobDescription"
-                placeholder={"job description"}
-                width="sm"
-
-
-            />
-            </Space>
-            <Space>
-             <ProFormText
-                label={'Workplace Address'}
-                name="workplaceAddress"
-                placeholder={"gender"}
-                width="sm"
-
-
-            />
-            </Space>
-          
         </>)
     }
 
@@ -272,7 +577,7 @@ const Actions: React.FC = () => {
     // table columns
 
     const columns: ProColumns<TableListItem>[] = [
-      
+
         {
             title: "Name",
             dataIndex: 'nameV',
@@ -287,13 +592,13 @@ const Actions: React.FC = () => {
             title: "Gender",
             dataIndex: 'gender',
             valueType: 'text',
-            hideInTable:true
+            hideInTable: true
         },
         {
             title: "Relationship",
             dataIndex: 'relationship',
             valueType: 'text',
-            hideInTable:true
+            hideInTable: true
         },
         {
             title: "Maritalstatus",
@@ -302,57 +607,28 @@ const Actions: React.FC = () => {
             valueEnum: {
                 0: { text: 'Unmarried' },
                 1: { text: 'Married' },
-               
-              },
-            hideInTable:true
+
+            },
+            hideInTable: true
         },
         {
             title: "NIC",
             dataIndex: 'nic',
             valueType: 'text',
-            hideInTable:true
         },
         {
             title: "Education level",
             dataIndex: 'educationLevel',
             valueType: 'text',
-            hideInTable:true
+            hideInTable: true
         },
         {
             title: "Job description",
             dataIndex: 'jobDescription',
             valueType: 'text',
-            hideInTable:true
+            hideInTable: true
         },
-        // {
-        //     title: "House Style",
-        //     dataIndex: 'housestyle',
-        //     valueType: 'select',
-        //     valueEnum: {
-        //         0: { text: 'Permenant/temperorygovernment' },
-        //         1: { text: 'Married' },
-               
-        //       },
-        // },
-        // {
-        //     title: "Public funds",
-        //     dataIndex: 'publicfunds',
-        //     valueType: 'text',
-        //     hideInTable:true
-        // },
-        // {
-        //     title: "Revenew number",
-        //     dataIndex: 'revenueNumber',
-        //     valueType: 'text',
-        //     hideInTable:true
-        // },
-        // {
-        //     title: "Samurdhi",
-        //     dataIndex: 'samurdhi',
-        //     valueType: 'text',
-        //     hideInTable:true
-        // },
-        // {
+
         //     title: "home Phone",
         //     dataIndex: 'homePhone',
         //     valueType: 'text',
@@ -385,25 +661,26 @@ const Actions: React.FC = () => {
                             </div>
                         }
                         onFinish={async (values: TableListItem) => {
-                            handleEdit({ ...values, 
+                            handleEdit({
+                                ...values,
                                 id: dom.id,
-                                nameV:values.nameV,
-                                houseNo:values.houseNo,
-                                gender:values.gender,
-                                relationship:values.relationship,
-                                maritalStatus:values.maritalStatus,
-                                nic:values.nic,
-                                educationLevel:values.educationLevel,
-                                jobDescription:values.jobDescription,
-                                workplaceAddress:values.workplaceAddress ,
-                                birthday:values.birthday,
+                                nameV: values.nameV,
+                                houseNo: values.houseNo,
+                                gender: values.gender,
+                                relationship: values.relationship,
+                                maritalStatus: values.maritalStatus,
+                                nic: values.nic,
+                                educationLevel: values.educationLevel,
+                                jobDescription: values.jobDescription,
+                                workplaceAddress: values.workplaceAddress,
+                                birthday: values.birthday,
                                 // houseStyle: values.houseStyle,
                                 // publicFunds: values.publicFunds,
                                 // revenueNumber: values.publicFunds,
                                 // samurdhi: values.samurdhi,
                                 // homePhone: values.homePhone,
                                 // phone: values.phone
-            })
+                            })
                         }}
 
                         submitter={{
@@ -418,23 +695,23 @@ const Actions: React.FC = () => {
                         request={async () => {
                             return {
                                 id: dom.id,
-                                nameV:dom.nameV,
-                                houseNo:dom.houseNo,
-                                gender:dom.gender,
-                                relationship:dom.relationship,
-                                maritalStatus:dom.maritalStatus,
-                                nic:dom.nic,
-                                educationLevel:dom.educationLevel,
-                                jobDescription:dom.jobDescription,
-                                workplaceAddress:dom.workplaceAddress,   
-                                birthday:dom.birthday,
+                                nameV: dom.nameV,
+                                houseNo: dom.houseNo,
+                                gender: dom.gender,
+                                relationship: dom.relationship,
+                                maritalStatus: dom.maritalStatus,
+                                nic: dom.nic,
+                                educationLevel: dom.educationLevel,
+                                jobDescription: dom.jobDescription,
+                                workplaceAddress: dom.workplaceAddress,
+                                birthday: dom.birthday,
                                 // houseStyle: dom.houseStyle,
                                 // publicFunds: dom.publicFunds,
                                 // revenueNumber: dom.publicFunds,
                                 // samurdhi: dom.samurdhi,
                                 // homePhone: dom.homePhone,
                                 // phone: dom.phone,
-                     
+
                                 useMode: 'chapter',
                             }
                         }}
@@ -445,7 +722,7 @@ const Actions: React.FC = () => {
 
                     </DrawerForm>,
                     <a key="2" onClick={() => {
-                       // setDeleteId(dom.id)
+                        // setDeleteId(dom.id)
                         showDeleteModal(dom.id)
                     }}><FormattedMessage id="pages.workflow.delete" defaultMessage="Delete" /></a>
                 ]
@@ -458,10 +735,11 @@ const Actions: React.FC = () => {
     return (
         <>
 
+
             <ProTable<TableListItem>
 
                 columns={columns}
-                request={(params, sorter, filter) => queryData( { params })}
+                request={(params, sorter, filter) => queryData({ params })}
                 actionRef={tableRef}
                 rowKey="id"
                 columnsStateMap={columnsStateMap}
@@ -490,7 +768,7 @@ const Actions: React.FC = () => {
             <ModalForm
                 form={form}
 
-                width={800}
+                width={1000}
                 title={intl.formatMessage({
                     id: 'pages.workflow.action.addnew',
                     defaultMessage: 'Add New Person',

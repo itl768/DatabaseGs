@@ -1,5 +1,4 @@
 import { Settings as LayoutSettings } from '@ant-design/pro-layout';
-
 const Settings: LayoutSettings & {
   pwa?: boolean;
   logo?: string;
@@ -7,14 +6,14 @@ const Settings: LayoutSettings & {
   navTheme: 'light',
   // 拂晓蓝
   primaryColor: '#1890ff',
-  layout: 'mix',
+  layout: 'side',
   contentWidth: 'Fluid',
   fixedHeader: false,
   fixSiderbar: true,
   colorWeak: false,
-  title: 'Ant Design Pro',
+  title: 'eGn',
   pwa: false,
-  logo: 'https://gw.alipayobjects.com/zos/rmsportal/KDpgvguMpGfqaHPjicRK.svg',
+  logo:"https://www.pngkey.com/png/full/239-2392657_circulos-png.png",
   iconfontUrl: '',
 };
 

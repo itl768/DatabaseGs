@@ -27,7 +27,7 @@ app.listen(port, () => {
 });
 
 app.post('/api/users', (req, res) => {
-  let query ="select * from gs.headPerson  "
+  let query ="select * from gs.masterData  "
   let body=req.body.params
   delete body["pageSize"]
   delete body["current"]
@@ -64,7 +64,7 @@ app.post('/api/addusers', (req, res) => {
   var labels = Object.keys(req.body);
   var data = Object.values(req.body);
   let body=JSON.stringify(req.body)
-let query =`INSERT INTO gs.headPerson SET?`
+let query =`INSERT INTO gs.masterData SET?`
 console.log(query)
 
   pool.query(query,req.body, (err, rows) => {
@@ -82,7 +82,7 @@ console.log(query)
 app.put('/api/updateusers', (req, res) => {
   let id=req.body.id
   delete req.body["id"]
-let query =`UPDATE gs.headPerson SET ? WHERE id= ?`
+let query =`UPDATE gs.masterData SET ? WHERE id= ?`
 console.log(query)
 
   pool.query(query,[req.body,id], (err, rows) => {
@@ -100,7 +100,7 @@ console.log(query)
 app.put('/api/updateusers', (req, res) => {
   let id=req.body.id
   delete req.body["id"]
-let query =`UPDATE gs.headPerson SET ? WHERE id= ?`
+let query =`UPDATE gs.masterData SET ? WHERE id= ?`
 console.log(query)
 
   pool.query(query,[req.body,id], (err, rows) => {
@@ -117,7 +117,7 @@ console.log(query)
 
 app.delete('/api/deleteusers/:id', (req, res) => {
 
-let query =`DELETE FROM gs.headPerson WHERE id= ?`
+let query =`DELETE FROM gs.masterData WHERE id= ?`
 
   pool.query(query,req.params.id, (err, rows) => {
     if (err) {
