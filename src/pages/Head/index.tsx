@@ -860,7 +860,9 @@ const Actions: React.FC = () => {
                         labelwidth="auto"
                         trigger={
                             <div>
-                                <a onClick={() => { console.log(dom) }} type="primary">
+                                <a onClick={() => {
+                                    formOnchange(dom)
+                                }} type="primary">
                                     View
                                 </a>
 
@@ -877,6 +879,9 @@ const Actions: React.FC = () => {
                             // Configure the properties of the button
 
                         }}
+                        onLoad={() => {
+
+                        }}
                         initialValues={convertNumtoString(dom)}
                     >
 
@@ -891,7 +896,9 @@ const Actions: React.FC = () => {
                         labelwidth="auto"
                         trigger={
                             <div>
-                                <a type="primary">
+                                <a type="primary" onClick={() => {
+                                    formOnchange(dom)
+                                }}>
                                     Edit
                                 </a>
                                 <Divider type="vertical" />
