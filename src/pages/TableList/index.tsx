@@ -345,6 +345,7 @@ const TableList: React.FC = () => {
       <UpdateForm
         onSubmit={async (value) => {
           const success = await handleUpdate(value);
+          console.log(success)
           if (success) {
             handleUpdateModalVisible(false);
             setCurrentRow(undefined);

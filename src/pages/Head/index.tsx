@@ -1,4 +1,4 @@
-import React, { useState, Key, useRef } from 'react'
+import React, { useState, useEffect, Key, useRef } from 'react'
 
 import type { ProColumns, ColumnsState } from '@ant-design/pro-table';
 import ProTable from '@ant-design/pro-table';
@@ -16,6 +16,7 @@ import form from 'antd/lib/form';
 import { PageContainer } from '@ant-design/pro-layout';
 import moment from 'moment';
 const { Title, Paragraph, Text, Link } = Typography;
+const { get } = require('lodash');
 
 // change as the page
 
@@ -58,6 +59,12 @@ type TableListItem = {
     samurdhi: string;
     workplaceAddress: string;
     nameIni: string;
+    isDeseased: string;
+    isShifted: string;
+    shiftedAddr: string;
+    donationType: string;
+    revenueNo: string;
+
 
 
 
@@ -79,7 +86,6 @@ const warningMsgs = {
 
 // change the page type
 const pageType = "Actions";
-
 interface TableType {
     reload: (resetPageIndex?: boolean) => void;
     reloadAndRest: () => void;
@@ -107,20 +113,39 @@ const Actions: React.FC = () => {
     const intl = useIntl();
     const { confirm } = Modal;
     const [form] = Form.useForm();
+    const [headPersonVal, setHeadPersonVal] = useState(true)
+    const [isReciveDonations, setisReciveDonations] = useState(true)
+    const [isAnyDis, setIsAnyDis] = useState(true)
+    const [isShift, setIsShift] = useState(true)
 
+    const convertNumtoString = (object) => {
+        const objectt = object
+        for (var key in object) {
+            if (typeof (object[key]) === "number") {
+                object[key] = object[key].toString()
+            }
 
+        }
+        console.log(objectt)
+        return object
+    }
 
     const showModal = () => {
         setConfirmLoading({ ...confirmLoading, add: true })
         handleAddModalVisible(true)
     }
-
+    // useEffect(() => {
+    //     setHeadPersonVal(false);
+    // }, [])
 
     const handleAdd = async (felids: TableListItem) => {
         const hide = message.loading(warningMsgs.addLoading)
         try {
 
-            await addData(pageType, { ...felids })
+            const res = await addData(pageType, { ...felids })
+            if (!res) {
+                throw new Error("dd")
+            }
             tableRef.current?.reload()
             handleAddModalVisible(false)
             hide();
@@ -128,7 +153,7 @@ const Actions: React.FC = () => {
             message.success(warningMsgs.addSuccess)
             return true
         } catch (error) {
-            console.log(error)
+            //console.log(error)
             hide()
             message.error(warningMsgs.addFailed)
             return false
@@ -138,7 +163,10 @@ const Actions: React.FC = () => {
     const handleEdit = async (updateParams: TableListItem) => {
         const hide = message.loading(warningMsgs.updateLoading)
         try {
-            await updateData(pageType, { ...updateParams })
+            const res = await updateData(pageType, { ...updateParams })
+            if (!res) {
+                throw new Error("dd")
+            }
             tableRef.current?.reload()
             message.success(warningMsgs.updateSuccess)
             return false
@@ -153,12 +181,15 @@ const Actions: React.FC = () => {
     const handleDelete = async (deleteID: number) => {
         const hide = message.loading(warningMsgs.deleteLoading)
         try {
-            await removeData(deleteID)
+            const res = await removeData(deleteID)
+            if (!res) {
+                throw new Error("dd")
+            }
             tableRef.current?.reload()
             message.success(warningMsgs.deleteSuccess)
             return false
         } catch (error) {
-            console.log(error)
+            //console.log(error)
             hide()
             message.error(warningMsgs.deleteFailed)
             return false
@@ -176,7 +207,31 @@ const Actions: React.FC = () => {
         });
     }
 
+    const formOnchange = (e) => {
 
+        //console.log(get(e, "isHeadPerson", false))
+
+
+        if (get(e, "isHeadPerson", "noVal") !== "noVal") {
+            setHeadPersonVal(e['isHeadPerson'] == 0 ? false : true)
+            //console.log(e['isHeadPerson'])
+        }
+        if (get(e, "donations", "noVal") !== "noVal") {
+            setisReciveDonations(e['donations'] == 0 ? false : true)
+
+        }
+
+        if (get(e, "disabilityStatus", "noVal") !== "noVal") {
+            setIsAnyDis(e['disabilityStatus'] == 0 ? false : true)
+
+        }
+        if (get(e, "isShifted", "noVal") !== "noVal") {
+            setIsShift(e['isShifted'] == 0 ? false : true)
+
+        }
+
+
+    }
     // form fields
     const formFields = (isDisabled) => {
         return (<>
@@ -190,12 +245,8 @@ const Actions: React.FC = () => {
                     rules={[
                         {
                             required: true,
-                            message: (
-                                <FormattedMessage
-                                    id="pages.workflow.action.name.rule"
-                                    defaultMessage="Action Name is a mandatory field"
-                                />
-                            ),
+                            message: "Name is a mandatory field"
+                            ,
                         },
                     ]}
 
@@ -221,6 +272,13 @@ const Actions: React.FC = () => {
                     name="houseNo"
                     placeholder={""}
                     width="sm"
+                    rules={[
+                        {
+                            required: true,
+                            message: "This is a mandatory field"
+                            ,
+                        },
+                    ]}
 
 
                 />
@@ -292,7 +350,13 @@ const Actions: React.FC = () => {
                     name="nic"
                     placeholder={"NIC no"}
                     width="sm"
-
+                    rules={[
+                        {
+                            required: true,
+                            message: "This is a mandatory field"
+                            ,
+                        },
+                    ]}
                 />
                 <ProFormText
                     disabled={isDisabled}
@@ -339,7 +403,7 @@ const Actions: React.FC = () => {
                     name="revenueNo"
                     placeholder={""}
                     width="sm"
-
+                    hidden={headPersonVal}
 
                 />
             </Space>
@@ -381,7 +445,6 @@ const Actions: React.FC = () => {
                     disabled={isDisabled}
                     label={'Workplace Address'}
                     name="workplaceAddress"
-                    placeholder={"gender"}
                     width="sm"
 
 
@@ -434,13 +497,23 @@ const Actions: React.FC = () => {
                     name="donations"
                     label="Do you receive donations"
                 />
+                <ProFormText
+                    disabled={isDisabled}
+                    label={'Donation type'}
+                    name="donationType"
+                    placeholder={"Type"}
+                    width="sm"
+                    hidden={isReciveDonations}
 
+
+                />
                 <ProFormDigit
                     disabled={isDisabled}
                     label={'Amount'}
                     name="donationAmount"
                     placeholder={"Amount"}
                     width="sm"
+                    hidden={isReciveDonations}
 
 
                 />
@@ -450,23 +523,30 @@ const Actions: React.FC = () => {
                     name="donationPostOffice"
                     placeholder={"Post Office"}
                     width="sm"
+                    hidden={isReciveDonations}
 
 
                 />
+
+            </Space>
+            <Space>
                 <ProFormText
                     disabled={isDisabled}
                     label={'Reason'}
                     name="reason"
                     placeholder={"Reason"}
                     width="sm"
+                    hidden={isReciveDonations}
 
 
                 />
+
             </Space>
 
-            <Divider><Text> Disabilities</Text></Divider>
+            {headPersonVal ? "" : <Divider><Text> Disabilities</Text></Divider>}
             <Space>
                 <ProFormSelect
+                    hidden={headPersonVal}
                     disabled={isDisabled}
                     width="sm"
                     options={[
@@ -482,6 +562,7 @@ const Actions: React.FC = () => {
                     label="Any one disabled in the family"
                 />
                 <ProFormText
+                    hidden={headPersonVal || isAnyDis}
                     disabled={isDisabled}
                     label={'If yes Name '}
                     name="disabilityName"
@@ -491,6 +572,7 @@ const Actions: React.FC = () => {
 
                 />
                 <ProFormText
+                    hidden={headPersonVal || isAnyDis}
                     disabled={isDisabled}
                     label={'Type of disability '}
                     name="disabilityType"
@@ -500,6 +582,7 @@ const Actions: React.FC = () => {
 
                 />
                 <ProFormText
+                    hidden={headPersonVal || isAnyDis}
                     disabled={isDisabled}
                     label={'If you reseave donations, howmuch?'}
                     name="disabilityDonations"
@@ -510,15 +593,17 @@ const Actions: React.FC = () => {
                 />
             </Space>
 
-            <Divider>   <Text> Land size</Text></Divider>
+            {headPersonVal ? "" : <Divider>   <Text> Land size</Text></Divider>}
             <Space>            <ProFormText
                 disabled={isDisabled}
                 label={'Acres, Rood, Perch'}
                 name="acres"
                 placeholder={"landSize"}
                 width="sm"
+                hidden={headPersonVal}
             />
                 <ProFormSelect
+                    hidden={headPersonVal}
                     disabled={isDisabled}
                     width="sm"
                     options={[
@@ -534,18 +619,20 @@ const Actions: React.FC = () => {
                     label="ResidanceStatus"
                 />
                 <ProFormDatePicker
+                    hidden={headPersonVal}
                     disabled={isDisabled}
                     width="sm"
                     label="Date of initial residency"
                     name="residanceDate" />
             </Space>
 
-            <Divider>  <Text> Goverment retired persons</Text></Divider>
+            {headPersonVal ? "" : <Divider>  <Text> Goverment retired persons</Text></Divider>}
             <Space>
 
-                <Text>Person1 : </Text>
+                {headPersonVal ? "" : <Text>Person1 : </Text>}
 
                 <ProFormText
+                    hidden={headPersonVal}
                     disabled={isDisabled}
                     label={'Names '}
                     name="retireName1"
@@ -553,6 +640,7 @@ const Actions: React.FC = () => {
                     width="sm"
                 />
                 <ProFormText
+                    hidden={headPersonVal}
                     disabled={isDisabled}
                     label={'Retirement No '}
                     name="retireNo1"
@@ -560,6 +648,7 @@ const Actions: React.FC = () => {
                     width="sm"
                 />
                 <ProFormText
+                    hidden={headPersonVal}
                     disabled={isDisabled}
                     label={'Divisional Secr Office '}
                     name="agoffice1"
@@ -569,8 +658,9 @@ const Actions: React.FC = () => {
             </Space>
             <Space>
 
-                <Text>Person2 : </Text>
+                {headPersonVal ? "" : <Text>Person2 : </Text>}
                 <ProFormText
+                    hidden={headPersonVal}
                     disabled={isDisabled}
                     label={'Names '}
                     name="retireName2"
@@ -578,6 +668,7 @@ const Actions: React.FC = () => {
                     width="sm"
                 />
                 <ProFormText
+                    hidden={headPersonVal}
                     disabled={isDisabled}
                     label={'Retirement No '}
                     name="retireNo2"
@@ -585,6 +676,7 @@ const Actions: React.FC = () => {
                     width="sm"
                 />
                 <ProFormText
+                    hidden={headPersonVal}
                     disabled={isDisabled}
                     label={'Divisional Secr Office '}
                     name="agoffice2"
@@ -593,12 +685,13 @@ const Actions: React.FC = () => {
                 />
             </Space>
 
-            <Divider> <Text> Any family members abroad</Text></Divider>
+            {headPersonVal ? "" : <Divider> <Text> Any family members abroad</Text></Divider>}
             <Space>
 
-                <Text>Person1 : </Text>
+                {headPersonVal ? "" : <Text>Person1 : </Text>}
 
                 <ProFormText
+                    hidden={headPersonVal}
                     disabled={isDisabled}
                     label={'Names '}
                     name="abroadName1"
@@ -606,8 +699,9 @@ const Actions: React.FC = () => {
                     width="sm"
                 />
 
-                <Text>Person2 : </Text>
+                {headPersonVal ? "" : <Text>Person2 : </Text>}
                 <ProFormText
+                    hidden={headPersonVal}
                     disabled={isDisabled}
                     label={'Names '}
                     name="abroadName2"
@@ -617,24 +711,70 @@ const Actions: React.FC = () => {
             </Space>
 
             <Divider> <Text> Do you recieve samurdhi</Text></Divider>
+            <Space>
+                <ProFormSelect
+                    disabled={isDisabled}
+                    width="sm"
+                    options={[
+                        {
+                            value: '0',
+                            label: 'Yes',
+                        }, {
+                            value: '1',
+                            label: 'No',
+                        },
+                    ]}
+                    name="samurdhi"
+                    label="Samurdhi"
+                />
+            </Space>
+            {headPersonVal ? "" : <Divider> <Text>Status</Text></Divider>}
+            <Space>
+                <ProFormSelect
+                    disabled={isDisabled}
+                    hidden={headPersonVal}
 
-            <ProFormSelect
-                disabled={isDisabled}
-                width="sm"
-                options={[
-                    {
-                        value: '0',
-                        label: 'Yes',
-                    }, {
-                        value: '1',
-                        label: 'No',
-                    },
-                ]}
-                name="samurdhi"
-                label="Samurdhi"
-            />
+                    width="sm"
+                    options={[
+                        {
+                            value: '0',
+                            label: 'Yes',
+                        }, {
+                            value: '1',
+                            label: 'No',
+                        },
+                    ]}
+                    name="isDeseased"
+                    label="Is deseased"
+                />
 
+                <ProFormSelect
+                    hidden={headPersonVal}
 
+                    disabled={isDisabled}
+                    width="sm"
+                    options={[
+                        {
+                            value: '0',
+                            label: 'Yes',
+                        }, {
+                            value: '1',
+                            label: 'No',
+                        },
+                    ]}
+                    name="isShifted"
+                    label="Moved to a new place"
+                />
+
+                <ProFormText
+                    hidden={headPersonVal || isShift}
+                    disabled={isDisabled}
+                    label={'New Address '}
+                    name="shiftedAddr"
+                    placeholder={"address"}
+                    width="lg"
+                />
+            </Space>
         </>)
     }
 
@@ -655,10 +795,9 @@ const Actions: React.FC = () => {
             valueType: 'text',
         },
         {
-            title: "Gender",
-            dataIndex: 'gender',
+            title: "NIC",
+            dataIndex: 'nic',
             valueType: 'text',
-            hideInTable: true
         },
         {
             title: "Relationship",
@@ -677,11 +816,7 @@ const Actions: React.FC = () => {
             },
             hideInTable: true
         },
-        {
-            title: "NIC",
-            dataIndex: 'nic',
-            valueType: 'text',
-        },
+
         {
             title: "Education level",
             dataIndex: 'educationLevel',
@@ -694,7 +829,12 @@ const Actions: React.FC = () => {
             valueType: 'text',
             hideInTable: true
         },
-
+        {
+            title: "Gender",
+            dataIndex: 'gender',
+            valueType: 'text',
+            hideInTable: true
+        },
         //     title: "home Phone",
         //     dataIndex: 'homePhone',
         //     valueType: 'text',
@@ -717,11 +857,10 @@ const Actions: React.FC = () => {
                 (entity, dom) => [
                     <DrawerForm
                         width={1000}
-                        key={0}
                         labelwidth="auto"
                         trigger={
                             <div>
-                                <a type="primary">
+                                <a onClick={() => { console.log(dom) }} type="primary">
                                     View
                                 </a>
 
@@ -738,50 +877,7 @@ const Actions: React.FC = () => {
                             // Configure the properties of the button
 
                         }}
-                        request={async () => {
-                            console.log(dom, "this")
-                            return {
-
-                                id: dom.id,
-                                abroadName1: dom.abroadName1,
-                                abroadName2: dom.abroadName2,
-                                acres: dom.acres,
-                                address: dom.address,
-                                agoffice1: dom.agoffice1,
-                                agoffice2: dom.agoffice2,
-                                birthday: dom.birthday,
-                                disabilityDonations: dom.disabilityDonations,
-                                disabilityName: dom.disabilityName,
-                                disabilityStatus: dom.disabilityStatus ? dom.disabilityStatus.toString() : null,
-                                disabilityType: dom.disabilityType,
-                                donationAmount: dom.donationAmount,
-                                donationPostOffice: dom.donationPostOffice,
-                                donations: dom.donations ? dom.donations.toString() : null,
-                                educationLevel: dom.educationLevel,
-                                gender: dom.gender ? dom.gender.toString() : null,
-                                homePhone: dom.homePhone,
-                                houseNo: dom.houseNo,
-                                houseType: dom.houseType ? dom.houseType.toString() : null,
-                                isHeadPerson: dom.isHeadPerson ? dom.isHeadPerson.toString() : null,
-                                jobDescription: dom.jobDescription,
-                                jobType: dom.jobType ? dom.jobType.toString() : null,
-                                maritalStatus: dom.maritalStatus ? dom.maritalStatus.toString() : null,
-                                nameV: dom.nameV,
-                                nic: dom.nic,
-                                phone: dom.phone,
-                                reason: dom.reason,
-                                relationship: dom.relationship,
-                                residanceDate: dom.residanceDate,
-                                residanceStatus: dom.residanceStatus ? dom.residanceStatus.toString() : null,
-                                retireName1: dom.retireName1,
-                                retireName2: dom.retireName2,
-                                retireNo1: dom.retireNo1,
-                                retireNo2: dom.retireNo2,
-                                samurdhi: dom.samurdhi ? dom.samurdhi.toString() : null,
-                                workplaceAddress: dom.workplaceAddress,
-                                nameIni: dom.nameIni
-                            }
-                        }}
+                        initialValues={convertNumtoString(dom)}
                     >
 
                         {formFields(true)}
@@ -789,8 +885,9 @@ const Actions: React.FC = () => {
 
                     </DrawerForm >,
                     <DrawerForm
+                        onValuesChange={formOnchange}
+
                         width={1000}
-                        key={1}
                         labelwidth="auto"
                         trigger={
                             <div>
@@ -842,7 +939,13 @@ const Actions: React.FC = () => {
                                 retireNo2: values.retireNo2,
                                 samurdhi: values.samurdhi,
                                 workplaceAddress: values.workplaceAddress,
-                                nameIni: values.nameIni
+                                nameIni: values.nameIni,
+                                isDeseased: values.isDeseased,
+                                isShifted: values.isShifted,
+                                shiftedAddr: values.shiftedAddr,
+                                donationType: values.donationType,
+                                revenueNo: values.revenueNo
+
 
                             })
                         }}
@@ -856,50 +959,8 @@ const Actions: React.FC = () => {
                             // Configure the properties of the button
 
                         }}
-                        request={async () => {
-                            console.log(dom, "this")
-                            return {
+                        initialValues={convertNumtoString(dom)}
 
-                                id: dom.id,
-                                abroadName1: dom.abroadName1,
-                                abroadName2: dom.abroadName2,
-                                acres: dom.acres,
-                                address: dom.address,
-                                agoffice1: dom.agoffice1,
-                                agoffice2: dom.agoffice2,
-                                birthday: dom.birthday,
-                                disabilityDonations: dom.disabilityDonations,
-                                disabilityName: dom.disabilityName,
-                                disabilityStatus: dom.disabilityStatus ? dom.disabilityStatus.toString() : null,
-                                disabilityType: dom.disabilityType,
-                                donationAmount: dom.donationAmount,
-                                donationPostOffice: dom.donationPostOffice,
-                                donations: dom.donations ? dom.donations.toString() : null,
-                                educationLevel: dom.educationLevel,
-                                gender: dom.gender ? dom.gender.toString() : null,
-                                homePhone: dom.homePhone,
-                                houseNo: dom.houseNo,
-                                houseType: dom.houseType ? dom.houseType.toString() : null,
-                                isHeadPerson: dom.isHeadPerson ? dom.isHeadPerson.toString() : null,
-                                jobDescription: dom.jobDescription,
-                                jobType: dom.jobType ? dom.jobType.toString() : null,
-                                maritalStatus: dom.maritalStatus ? dom.maritalStatus.toString() : null,
-                                nameV: dom.nameV,
-                                nic: dom.nic,
-                                phone: dom.phone,
-                                reason: dom.reason,
-                                relationship: dom.relationship,
-                                residanceDate: dom.residanceDate,
-                                residanceStatus: dom.residanceStatus ? dom.residanceStatus.toString() : null,
-                                retireName1: dom.retireName1,
-                                retireName2: dom.retireName2,
-                                retireNo1: dom.retireNo1,
-                                retireNo2: dom.retireNo2,
-                                samurdhi: dom.samurdhi ? dom.samurdhi.toString() : null,
-                                workplaceAddress: dom.workplaceAddress,
-                                nameIni: dom.nameIni
-                            }
-                        }}
                     >
 
                         {formFields(false)}
@@ -916,62 +977,72 @@ const Actions: React.FC = () => {
     ];
 
 
-
     return (
         <>
+            <PageContainer style={{ background: "white", height: "100%" }}>
+
+                <ProTable<TableListItem>
+                    columns={columns}
+                    request={(params, sorter, filter) => queryData({ params })}
+                    actionRef={tableRef}
+                    rowKey="id"
+                    columnsStateMap={columnsStateMap}
+                    onColumnsStateChange={(map) => setColumnsStateMap(map)}
+                    search={true}
+                    filterType={"light"}
+                    pagination={{
+                        showSizeChanger: true,
+                    }}
+                    dateFormatter="string"
+                    headerTitle={intl.formatMessage({
+                        id: 'pages.workflow.action.title',
+                        defaultMessage: "Head Person list",
+                    })}
+                    toolBarRender={() => [
+                        <Button key="button" onClick={showModal} icon={<PlusOutlined />} type="primary" >
+                            <FormattedMessage id="pages.departments.new" defaultMessage=" New" />
+                        </Button>,
+                    ]}
+                />
 
 
-            <ProTable<TableListItem>
-
-                columns={columns}
-                request={(params, sorter, filter) => queryData({ params })}
-                actionRef={tableRef}
-                rowKey="id"
-                columnsStateMap={columnsStateMap}
-                onColumnsStateChange={(map) => setColumnsStateMap(map)}
-                search={true}
-                pagination={{
-                    showSizeChanger: true,
-                }}
-                dateFormatter="string"
-                headerTitle={intl.formatMessage({
-                    id: 'pages.workflow.action.title',
-                    defaultMessage: "Head Person list",
-                })}
-                toolBarRender={() => [
-                    <Button key="button" onClick={showModal} icon={<PlusOutlined />} type="primary" >
-                        <FormattedMessage id="pages.departments.new" defaultMessage=" New" />
-                    </Button>,
-                ]}
-            />
 
 
+                {/* Add Action Model */}
+
+                <ModalForm
+                    form={form}
+                    onValuesChange={formOnchange}
+
+                    width={1000}
+                    title={intl.formatMessage({
+                        id: 'pages.workflow.action.addnew',
+                        defaultMessage: 'Add New Person',
+                    })}
+                    onFinish={async (values: any) => {
+                        const res = await handleAdd(values as TableListItem)
+                        //console.log("trerer", res)
+                        if (res) {
+                            handleAddModalVisible(false);
+
+                        }
+                    }}
+                    visible={addModalVisible}
+                    onVisibleChange={handleAddModalVisible}
+                    initialValues={{
+                        disabilityStatus: '1',
+                        donations: '1',
+                        isHeadPerson: '1',
+                        maritalStatus: '1',
+                        samurdhi: '1',
+                        useMode: 'chapter',
+                    }}
+                >
 
 
-            {/* Add Action Model */}
-
-            <ModalForm
-                form={form}
-
-                width={1000}
-                title={intl.formatMessage({
-                    id: 'pages.workflow.action.addnew',
-                    defaultMessage: 'Add New Person',
-                })}
-                onFinish={async (values: any) => {
-                    await handleAdd(values as TableListItem)
-                }}
-                visible={addModalVisible}
-                onVisibleChange={handleAddModalVisible}
-                initialValues={{
-                    useMode: 'chapter',
-                }}
-            >
-
-
-                {formFields()}
-            </ModalForm>
-
+                    {formFields(false)}
+                </ModalForm>
+            </PageContainer>
         </>
     )
 }

@@ -48,8 +48,8 @@ query=query.slice(0, -2);
 
   pool.query(query, (err, rows) => {
     if (err) {
-      res.send(err);
-    } else {
+      res.status(500).send({ error: err.sqlMessage })    } 
+      else {
       res.send(
         {"data":rows
         ,
@@ -65,12 +65,16 @@ app.post('/api/addusers', (req, res) => {
   var data = Object.values(req.body);
   let body=JSON.stringify(req.body)
 let query =`INSERT INTO gs.masterData SET?`
-console.log(query)
 
   pool.query(query,req.body, (err, rows) => {
     if (err) {
-      res.send(err);
-    } else {
+      // res.send({
+      //   "status":500,
+      //   "error":err.sqlMessage});
+      res.status(500).send({ error: err.sqlMessage })
+
+  }
+     else {
       res.send(
         {"data":rows
         ,
@@ -87,8 +91,8 @@ console.log(query)
 
   pool.query(query,[req.body,id], (err, rows) => {
     if (err) {
-      res.send(err);
-    } else {
+      res.status(500).send({ error: err.sqlMessage })   
+     } else {
       res.send(
         {"data":rows
         ,
@@ -105,8 +109,8 @@ console.log(query)
 
   pool.query(query,[req.body,id], (err, rows) => {
     if (err) {
-      res.send(err);
-    } else {
+      res.status(500).send({ error: err.sqlMessage })   
+     } else {
       res.send(
         {"data":rows
         ,
@@ -121,8 +125,8 @@ let query =`DELETE FROM gs.masterData WHERE id= ?`
 
   pool.query(query,req.params.id, (err, rows) => {
     if (err) {
-      res.send(err);
-    } else {
+      res.status(500).send({ error: err.sqlMessage })   
+     } else {
       res.send(
         {"data":rows
         ,

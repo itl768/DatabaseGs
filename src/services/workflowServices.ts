@@ -1,9 +1,6 @@
 // import type { PayGradeTableParams } from '@/pages/EmployeeFeild/sub_pages/PayGrade/data.d';
 
 
-/**
- * To get all PayGrades
- */
 
 export async function queryData( params: any) {
   console.log(params)
@@ -16,13 +13,13 @@ export async function queryData( params: any) {
     },
     body:JSON.stringify(params)
 });
-try {
-  let res = await fetch(request);
-  return await res.json();
-} catch (error) {
-  console.log(error);
-}
-
+let res = await fetch(request);
+  if(!res.ok){
+    return false
+    }
+    return await res.json();
+  
+  
 }
 
 
@@ -39,13 +36,12 @@ const request = new Request("http://localhost:8080/api/addusers", {
   },
   body:JSON.stringify(params)
 });
-try {
-let res = await fetch(request);
-return await res.json();
-} catch (error) {
-console.log(error);
-}
 
+let res = await fetch(request);
+if(!res.ok){
+return false
+}
+return await res.json();
 
 
 }
@@ -59,13 +55,14 @@ export async function updateData(type: string, params: any) {
     },
     body:JSON.stringify(params)
   });
-  try {
-  let res = await fetch(request);
-  return await res.json();
-  } catch (error) {
-  console.log(error);
-  }
   
+  let res = await fetch(request);
+  if(!res.ok){
+    return false
+    }
+    return await res.json();
+    
+    
 
 }
 
@@ -78,12 +75,14 @@ export async function removeData( key) {
     }
    
   });
-  try {
+
   let res = await fetch(request);
-  return await res.json();
-  } catch (error) {
-  console.log(error);
-  }
+  if(!res.ok){
+    return false
+    }
+    return await res.json();
+    
+    
   
 }
 
