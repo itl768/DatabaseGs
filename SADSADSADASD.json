@@ -1,0 +1,181 @@
+{
+    "abroadName1": {
+        "type": "",
+        "valueEnum": []
+    },
+    "abroadName2": {
+        "label": "",
+        "type": "",
+        "valueEnum": []
+    },
+    "acres": {
+        "label": "",
+        "type": "",
+        "valueEnum": []
+    },
+    "address": {
+        "label": "",
+        "type": "",
+        "valueEnum": []
+    },
+    "agoffice1": {
+        "label": "",
+        "type": "",
+        "valueEnum": []
+    },
+    "agoffice2": {
+        "label": "",
+        "type": "",
+        "valueEnum": []
+    },
+    "birthday": {
+        "label": "",
+        "type": "",
+        "valueEnum": []
+    },
+    "disabilityDonations": {
+        "label": "",
+        "type": "",
+        "valueEnum": []
+    },
+    "disabilityName": {
+        "label": "",
+        "type": "",
+        "valueEnum": []
+    },
+    "disabilityStatus": {
+        "label": "",
+        "type": "",
+        "valueEnum": []
+    },
+    "disabilityType": {
+        "label": "",
+        "type": "",
+        "valueEnum": []
+    },
+    "donationAmount": {
+        "label": "",
+        "type": "",
+        "valueEnum": []
+    },
+    "donationPostOffice": {
+        "label": "",
+        "type": "",
+        "valueEnum": []
+    },
+    "donations": {
+        "label": "",
+        "type": "",
+        "valueEnum": []
+    },
+    "educationLevel": {
+        "label": "",
+        "type": "",
+        "valueEnum": []
+    },
+    "gender": {
+        "label": "",
+        "type": "",
+        "valueEnum": []
+    },
+    "homePhone": {
+        "label": "",
+        "type": "",
+        "valueEnum": []
+    },
+    "houseNo": {
+        "label": "",
+        "type": "",
+        "valueEnum": []
+    },
+    "houseType": {
+        "label": "",
+        "type": "",
+        "valueEnum": []
+    },
+    "isHeadPerson": {
+        "label": "",
+        "type": "",
+        "valueEnum": []
+    },
+    "jobDescription": {
+        "label": "",
+        "type": "",
+        "valueEnum": []
+    },
+    "jobType": {
+        "label": "",
+        "type": "",
+        "valueEnum": []
+    },
+    "maritalStatus": {
+        "label": "",
+        "type": "",
+        "valueEnum": []
+    },
+    "nameV": {
+        "label": "",
+        "type": "",
+        "valueEnum": []
+    },
+    "nic": {
+        "label": "",
+        "type": "",
+        "valueEnum": []
+    },
+    "phone": {
+        "label": "",
+        "type": "",
+        "valueEnum": []
+    },
+    "reason": {
+        "label": "",
+        "type": "",
+        "valueEnum": []
+    },
+    "relationship": {
+        "label": "",
+        "type": "",
+        "valueEnum": []
+    },
+    "residanceDate": {
+        "label": "",
+        "type": "",
+        "valueEnum": []
+    },
+    "residanceStatus": {
+        "label": "",
+        "type": "",
+        "valueEnum": []
+    },
+    "retireName1": {
+        "label": "",
+        "type": "",
+        "valueEnum": []
+    },
+    "retireName2": {
+        "label": "",
+        "type": "",
+        "valueEnum": []
+    },
+    "retireNo1": {
+        "label": "",
+        "type": "",
+        "valueEnum": []
+    },
+    "retireNo2": {
+        "label": "",
+        "type": "",
+        "valueEnum": []
+    },
+    "samurdhi": {
+        "label": "",
+        "type": "",
+        "valueEnum": []
+    },
+    "workplaceAddress": {
+        "label": "",
+        "type": "",
+        "valueEnum": []
+    }
+}

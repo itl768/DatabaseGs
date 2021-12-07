@@ -873,16 +873,17 @@ const Actions: React.FC = () => {
                             // Configure the button text
                             searchConfig: {
                                 resetText: 'Close',
-                                submitText: 'Submit',
+                                submitText: 'Generate Report',
 
                             },
                             // Configure the properties of the button
 
                         }}
-                        onLoad={() => {
 
-                        }}
                         initialValues={convertNumtoString(dom)}
+                        onFinish={async (values: TableListItem) => {
+                            console.log(values)
+                        }}
                     >
 
                         {formFields(true)}
